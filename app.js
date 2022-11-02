@@ -8,6 +8,8 @@
 // Set strict mode
 "use strict";
 
+const { loadProfile } = require("./utils/fileHelper");
+
 // * Load the core HTTP module so that we can create a server
 
 // * Load the file helper functions with object destructuring from utils
@@ -32,6 +34,10 @@ const server = http.createServer((req, res) => {
       console.log("Josh is here.  Loading profile...");
       loadProfile(req, res);
       break;
+    case "/profiles/scott":
+      console.log("Scott is here. Loading profile...");
+      loadProfile(req, res);
+      break
 
     /* Add in a cases pointing at your personal profiles below */
 
