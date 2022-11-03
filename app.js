@@ -11,16 +11,13 @@
 const { loadProfile, loadStatic } = require("./utils/fileHelper");
 
 // * Load the core HTTP module so that we can create a server
-
-// * Load the file helper functions with object destructuring from utils
-
-
-
-// hostname and port are needed in order for the http server to listen for requests
-// * declare variables for these using 127.0.0.1 for hostname
 const http = require("http");
 const hostname = "127.0.0.1";
 const port = 3000;
+// * Load the file helper functions with object destructuring from utils
+
+// hostname and port are needed in order for the http server to listen for requests
+// * declare variables for these using 127.0.0.1 for hostname
 
 // * process.env.PORT will be defined by some hosts.  If undefined, use 3000.
 
@@ -30,9 +27,10 @@ const server = http.createServer((req, res) => {
   // branch based on the URL of the request
   switch (req.url) {
     case "/":
-      console.log("We're at the home page")
-      //loadProfile(req,res);
-      res.end("hello")
+      console.log("Hello Node Server");
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "text/html");
+      res.end("Hello Node Server");
       break;
     // Home page
     // * Add a case that responds to / which sends "Hello Node Server" with a 200
@@ -83,8 +81,3 @@ server.listen(port, hostname, () => {
 });
 // * Set the HTTP server to listen on port, hostname as declared above
 // * Within the callback console.log  `Server running at http://${hostname}:${port}/`
-
-// register the server to listen for requests
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
