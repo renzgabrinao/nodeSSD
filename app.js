@@ -59,6 +59,10 @@ const server = http.createServer((req, res) => {
       console.log("Kev is here. Loading profile...");
       loadProfile(req,res);
       break;
+    case "/profiles/renz":
+      console.log("Renz is here. Loading profile...");
+      loadProfile(req,res);
+      break;
 
     //   Unhandled URL
     default:
