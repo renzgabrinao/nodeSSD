@@ -43,7 +43,10 @@ const server = http.createServer((req, res) => {
       res.setHeader("Content-Type", "text/html");
       res.end("Profiles List");
       break;
-    //   Individual Profile
+    case "/profiles/brayden":
+      console.log("brayden is here.  Loading profile...");
+      loadProfile(req, res);
+      break;
     case "/profiles/josh":
       console.log("Josh is here.  Loading profile...");
       loadProfile(req, res);
@@ -52,9 +55,12 @@ const server = http.createServer((req, res) => {
       console.log("Scott is here. Loading profile...");
       loadProfile(req, res);
       break;
-    /* Add in a cases pointing at your personal profiles below */
     case "/profiles/kev":
       console.log("Kev is here. Loading profile...");
+      loadProfile(req,res);
+      break;
+    case "/profiles/renz":
+      console.log("Renz is here. Loading profile...");
       loadProfile(req,res);
       break;
 
@@ -79,5 +85,3 @@ const server = http.createServer((req, res) => {
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
-// * Set the HTTP server to listen on port, hostname as declared above
-// * Within the callback console.log  `Server running at http://${hostname}:${port}/`
