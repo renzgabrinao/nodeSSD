@@ -16,47 +16,21 @@ const movieRouter = require("./routers/profilesRouter");
 const apiRouter = require("./routers/apiRouter");
 const profileRouter = require('./routers/profilesRouter');
 
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
 app.use(indexRouter);
 app.use(movieRouter);
 app.use(apiRouter);
 
 app.use(expressLayouts);
-app.set("layout", "./layouts/full-width");
-
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
+app.set("layout", "./views/layouts/full-width");
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.use("/index", indexRouter);
+app.use("/", indexRouter);
 app.use("/profiles", profileRouter);
 app.use("/api", apiRouter);
-
-
-
-
-
-
-
-
-
-
-
 
 app.all("/*", (req, res) => {
   res.status(404).send("File Not Found");
