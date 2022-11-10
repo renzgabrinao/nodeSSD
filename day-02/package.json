@@ -7,7 +7,7 @@
     "dev": "nodemon app",
     "install-all": "npm install express ejs express-ejs-layouts morgan body-parser"
   },
-  "author": "",
+  "author": "", 
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.1",
