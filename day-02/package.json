@@ -1,14 +1,29 @@
 {
-  "name": "day-02",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
   "scripts": {
     "dev": "nodemon app"
   },
+  "name": "day-02",
+  "version": "1.0.0",
+  "description": "Day-02 Assignment",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renzgabrinao/nodeSSD.git"
+  },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "nodemon": "^2.0.20"
-  }
+  "bugs": {
+    "url": "https://github.com/renzgabrinao/nodeSSD/issues"
+  },
+  "homepage": "https://github.com/renzgabrinao/nodeSSD#readme"
 }
