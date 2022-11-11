@@ -1,17 +1,27 @@
-// in terminal: type ' npm run install-all '
+const express = require('express');
+const app = express();
+const path = require('path');
+const expressLayouts = require("express-ejs-layouts");
+
+// Use environment variable if defined, or a fixed value if not. 
+const port = process.env.PORT || 3003;
+
+const logger = require('morgan');
 
 
-const express = require("express")
-const app = express()
-const port = 3003
+app.use(logger('dev'));
+app.set('view engine', 'ejs');
 
-console.log("wassup")
+// Enable layouts
+app.use(expressLayouts);
+// Set the default layout
+app.set("layout", "./layouts/full-width");
 
-// start listening
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`)
-})
+const indexRouter = require("./routers/indexRouter");
+app.use('/', indexRouter);
 
-app.get("/", (req, res) => {
-    res.send("wow")
-})
+const profilesRouter = require("./routers/profilesRouter");
+app.use('/profiles', profilesRouter);
+
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));

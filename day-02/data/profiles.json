@@ -1,32 +1,31 @@
 [
     {
-        "id": "jsolomon",
-        "name": "Josh Solomon",
-        "imagePath": "/images/ProfessorJS.png",
+        "id": "scott",
+        "name": "Scott Croin",
+        "imagePath": "/images/scott.png",
         "interests": [
-            "Code",
+            "Cooking",
             "Coffee",
-            "Teaching"
+            "Coding"
         ]
     },
     {
-        "id": "hansolo",
-        "name": "Han Solomon",
+        "id": "brayden",
+        "name": "Brayden Kim",
+        "imagePath": "/images/brayden.jpg",
         "interests": [
-            "Parkour",
-            "Toys",
-            "Snacks"
+            "WorkingOut",
+            "Coding",
+            "Sleeping"
         ]
     },
     {
-        "id": "josh",
-        "name": "Joshua Giraffe",
-        "imagePath": "/images/JoshuaGiraffe.jpg",
+        "id": "renz",
+        "name": "Renz",
+        "imagePath": "/images/elle.jpg",
         "interests": [
-            "Coffee",
-            "Coffee",
-            "Calculus",
-            "Coffee",
+            "Playing game",
+            "Coding",
             "Magic"
         ]
     }
