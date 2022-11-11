@@ -1,0 +1,32 @@
+[
+    {
+        "id": "scott",
+        "name": "Scott Croin",
+        "imagePath": "/images/scott.png",
+        "interests": [
+            "Cooking",
+            "Coffee",
+            "Coding"
+        ]
+    },
+    {
+        "id": "brayden",
+        "name": "Brayden Kim",
+        "imagePath": "/images/brayden.jpg",
+        "interests": [
+            "WorkingOut",
+            "Coding",
+            "Sleeping"
+        ]
+    },
+    {
+        "id": "renz",
+        "name": "Renz",
+        "imagePath": "/images/elle.jpg",
+        "interests": [
+            "Playing game",
+            "Coding",
+            "Magic"
+        ]
+    }
+]
