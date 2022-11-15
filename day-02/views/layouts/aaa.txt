@@ -1,6 +1,0 @@
-specs says this folder should contain: 
-
-A layouts subdirectory containing
-
-    a full-width template
-    a template with a sidebar 

@@ -3,8 +3,6 @@ const profilesRouter = express.Router();
 const path = require('path');
 const fs = require('fs').promises;
 
-// profilesRouter.get("/", (req, res) => res.render("profiles", { title: "Profiles" }));
-
 const dataPath = path.join(__dirname, "../data/");
 
 profilesRouter.get("/", (req, res) => {
@@ -52,7 +50,5 @@ profilesRouter.get("/:id", (req, res) => {
             res.end("Error");
         });
 });
-
-
 
 module.exports = profilesRouter;

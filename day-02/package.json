@@ -16,7 +16,26 @@
 
   },
 
-  "author": "",
+  "author": "Brayden",
+
+  "contributors": [
+
+    {
+
+      "name": "Scott"
+
+    },
+
+    {
+
+      "name": "Renz"
+
+    },
+    {
+      "name": "Mason"
+    }
+
+  ],
 
   "license": "ISC",
 
@@ -37,8 +56,6 @@
   },
 
   "devDependencies": {
-
-    "morgan": "^1.10.0",
 
     "nodemon": "^2.0.20"
 
