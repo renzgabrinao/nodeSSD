@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 // Use environment variable if defined, or a fixed value if not. 
 const port = process.env.PORT || 3003;
 
+
+
 const logger = require('morgan');
 
 
@@ -25,3 +27,9 @@ app.use('/profiles', profilesRouter);
 
 app.use(express.static('public'));
 
+app.get("*", function (req, res) {
+  res.status(404).send('<h2 class="error">File Not Found</h2>');
+});
+
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));
