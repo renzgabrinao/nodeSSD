@@ -1,11 +1,19 @@
 <body>
   <div>
-    <% for(let i=0; i < profiles.length; i++) { %>
-    <div>
-      <h1>profiles[i].name</h1>
-      <img src="" />
-      <h2>Interests</h2>
-    </div>
-    <% } %>
+    <h1><%= currentPerson.name %></h1>
+    <img
+      src="<%= currentPerson.imagePath%>"
+      alt="Picture about <%= currentPerson.id %>"
+      width="500px"
+    />
   </div>
+
+  <div><%- include('./layouts/sidebar.ejs') %></div>
+
+  <h2>Interests</h2>
+  <ul>
+    <% for(let i=0; i < currentPerson.interests.length; i++) { %>
+    <li><%= currentPerson.interests[i]%></li>
+    <% } %>
+  </ul>
 </body>

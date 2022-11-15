@@ -16,7 +16,7 @@ profilesRouter.get("/", (req, res) => {
             console.log(profilesJson);
             //   prepare and send an OK response
             res.render("profiles", {
-                title: "Express Yourself - Profiles",
+                title: "Main Profiles",
                 profiles: profilesJson,
             });
         })
@@ -36,13 +36,15 @@ profilesRouter.get("/:id", (req, res) => {
             const profilesJson = JSON.parse(contents);
             console.log(profilesJson);
             //   prepare and send an OK response
-            const a = profilesJson.filter((e) => e.id === id)[0];
-            const b = profilesJson.filter((e) => e.id !== id);
-
+            const currentPerson = profilesJson.filter((e) => e.id === id)[0];
+            const others = profilesJson.filter((e) => e.id !== id);
+            //rending ejs file
             res.render("profile", {
-                title: "Express Yourself - Profiles",
-                a, b
+                title: `${currentPerson.id}'s profile`,
+                currentPerson, others
             });
+            console.log('current person: ', currentPerson);
+            console.log('others: ', others);
         })
         .catch((err) => {
             console.log(err);
@@ -51,7 +53,5 @@ profilesRouter.get("/:id", (req, res) => {
         });
 });
 
-
-module.exports = profilesRouter;
 
 module.exports = profilesRouter;
