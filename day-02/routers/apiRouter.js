@@ -15,8 +15,8 @@ apiRouter.get("/profiles", (req, res) =>{
             console.log(profilesJson);
             res.json(profilesJson);
         })
-        .catch((error)=> {
-            console.log(error)
+        .catch((err)=> {
+            console.log(err)
             res.writeHead(500);
             res.end("Error")
         });
@@ -31,10 +31,19 @@ apiRouter.get("/profiles/:id", (req, res) => {
             const profileJson = profilesJson
                 .filter((profile) => profile.id === req.params.id)
                 .shift();
-            console.log(profileJson);
+            if (!profileJson)
+            {
+                res.writeHead(500);
+                res.end("Error");
+            }
+            else
+            {
+                console.log(profileJson);
+                res.json(profileJson);
+            }
         })
-        .catch((error) => {
-            console.log(error);
+        .catch((err) => {
+            console.log(err);
             res.writeHead(500);
             res.end("Error");
         });
@@ -63,12 +72,21 @@ apiRouter.get("/quotes", (req, res) => {
             console.log(contents);
             const quotesJSON = JSON.parse(contents);
             const quoteJSON = quotesJSON
-                .filter((quote) => quote.id === req.params.id)
+                .filter((quote) => quote.author === req.params.id)
                 .shift();
-            console.log(quoteJSON);
+            if (!quoteJSON)
+            {
+                res.writeHead(500);
+                res.end("Error");
+            }
+            else
+            {
+                console.log(quoteJSON);
+                res.json(quoteJSON);
+            }
         })
-        .catch((error) => {
-            console.log(error);
+        .catch((err) => {
+            console.log(err);
             res.writeHead(500);
             res.end("Error");
         });
