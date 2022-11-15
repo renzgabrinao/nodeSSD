@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const expressLayouts = require("express-ejs-layouts");
-
+const bodyParser = require('body-parser');
 // Use environment variable if defined, or a fixed value if not. 
 const port = process.env.PORT || 3003;
 
@@ -23,5 +23,6 @@ app.use('/', indexRouter);
 const profilesRouter = require("./routers/profilesRouter");
 app.use('/profiles', profilesRouter);
 
+app.use(express.static('public'));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
