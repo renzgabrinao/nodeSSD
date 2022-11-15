@@ -14,7 +14,7 @@
         "name": "Brayden Kim",
         "imagePath": "/images/brayden.jpg",
         "interests": [
-            "Working out",
+            "WorkingOut",
             "Coding",
             "Sleeping"
         ]
@@ -27,6 +27,16 @@
             "Playing game",
             "Coding",
             "Magic"
+        ]
+    },
+    {
+        "id": "mason",
+        "name": "Mason",
+        "imagePath": "/images/mason.jpg",
+        "interests": [
+            "Video Games",
+            "Coding",
+            "Sleeping"
         ]
     }
 ]
