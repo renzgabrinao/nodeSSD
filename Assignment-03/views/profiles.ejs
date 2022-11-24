@@ -1,0 +1,10 @@
+<body>
+  <h1>Profiles</h1>
+  <div>
+    <% for(let i=0; i < profiles.length; i++) { %>
+    <div>
+      <a href="profiles/<%= profiles[i].id%>"><%= profiles[i].name %></a>
+    </div>
+    <% } %>
+  </div>
+</body>
