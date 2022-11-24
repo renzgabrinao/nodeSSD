@@ -1,0 +1,42 @@
+[
+    {
+        "id": "scott",
+        "name": "Scott Croin",
+        "imagePath": "/images/scott.jpg",
+        "interests": [
+            "Cooking",
+            "Coffee",
+            "Coding"
+        ]
+    },
+    {
+        "id": "brayden",
+        "name": "Brayden Kim",
+        "imagePath": "/images/brayden.jpg",
+        "interests": [
+            "WorkingOut",
+            "Coding",
+            "Sleeping"
+        ]
+    },
+    {
+        "id": "renz",
+        "name": "Renz",
+        "imagePath": "/images/elle.jpg",
+        "interests": [
+            "Playing game",
+            "Coding",
+            "Magic"
+        ]
+    },
+    {
+        "id": "mason",
+        "name": "Mason",
+        "imagePath": "/images/mason.jpg",
+        "interests": [
+            "Video Games",
+            "Coding",
+            "Sleeping"
+        ]
+    }
+]
