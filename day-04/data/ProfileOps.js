@@ -7,9 +7,19 @@ class ProfileOps {
     // DB methods
     async getAllProfiles() {
         console.log("getting all profiles");
+
         let profiles = await Profile.find().sort({ name: 1 });
         return profiles;
     }
+
+    // Search Profiles -> Bonus 1
+    async searchProfiles(searchString) {
+        const filter = { name: { $regex: searchString, $options: "i" } };
+        let searchProfiles = await Profile.find(filter);
+        return searchProfiles;
+
+    }
+
 
     async getProfileById(id) {
         console.log(`getting profile by id ${id}`);
