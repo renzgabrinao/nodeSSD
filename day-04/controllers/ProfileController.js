@@ -79,8 +79,10 @@ exports.CreateProfile = async function (request, response) {
     const profilePath = "/images/" + profileImage.name;
     let tempProfileObj = new Profile({
         name: request.body.name,
+
         interests: request.body.interests.split(","),
         imagePath: profilePath,
+
 
     });
 
