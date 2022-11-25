@@ -9,6 +9,7 @@ const dataPath = path.join(__dirname, "../data/");
 
 // Show listing of all profiles
 profilesRouter.get("/", ProfileController.Index);
+profilesRouter.post("/", ProfileController.Index);
 
 // Show Create Profile Form
 profilesRouter.get("/edit", ProfileController.Create);

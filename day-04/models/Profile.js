@@ -11,7 +11,7 @@ const profileSchema = mongoose.Schema(
         interests: Array,
     },
     // as a second argument, let's specify the collection we want to work with
-    { collection: "day04" }
+    { collection: "profiles" }
 );
 
 // Pass the Schema into Mongoose to use as our model
