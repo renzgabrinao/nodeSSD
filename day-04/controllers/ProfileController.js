@@ -77,7 +77,9 @@ exports.CreateProfile = async function (request, response) {
     // instantiate a new Profile Object populated with form data
     let tempProfileObj = new Profile({
         name: request.body.name,
+
         interests: request.body.interests.split(","),
+
 
     });
 
