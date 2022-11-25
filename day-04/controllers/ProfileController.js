@@ -10,18 +10,36 @@ const _profileOps = new ProfileOps();
 
 exports.Index = async function (request, response) {
     console.log("loading profiles from controller");
-    let profiles = await _profileOps.getAllProfiles();
-    if (profiles) {
-        response.render("profiles", {
-            title: "Express Yourself - Profiles",
-            profiles: profiles,
-        });
+    if (request.body.searchName) {
+        console.log("Search Name");
+        let profiles = await _profileOps.searchProfiles(request.body.searchName);
+
+        if (profiles) {
+            response.render("profiles", {
+                title: "Express Yourself - Profiles",
+                profiles: profiles,
+            });
+        } else {
+            response.render("profiles", {
+                title: "Express Yourself - Profiles",
+                profiles: [],
+            });
+        }
     } else {
-        response.render("profiles", {
-            title: "Express Yourself - Profiles",
-            profiles: [],
-        });
+        let profiles = await _profileOps.getAllProfiles();
+        if (profiles) {
+            response.render("profiles", {
+                title: "Express Yourself - Profiles",
+                profiles: profiles,
+            });
+        } else {
+            response.render("profiles", {
+                title: "Express Yourself - Profiles",
+                profiles: [],
+            });
+        }
     }
+
 };
 
 exports.Detail = async function (request, response) {
@@ -59,13 +77,12 @@ exports.CreateProfile = async function (request, response) {
     // instantiate a new Profile Object populated with form data
     let tempProfileObj = new Profile({
         name: request.body.name,
-        
+        interests: request.body.interests.split(","),
+
     });
 
     //
     let responseObj = await _profileOps.createProfile(tempProfileObj);
-
-    
 
     // if no errors, save was successful
     if (responseObj.errorMsg == "") {
@@ -115,7 +132,7 @@ exports.Edit = async function (request, response) {
     const profileId = request.params.id;
     let profileObj = await _profileOps.getProfileById(profileId);
     response.render("profile-form", {
-        title: "Edit Profile",
+        title: "Edit Profile Get",
         errorMessage: "",
         profile_id: profileId,
         profile: profileObj,
@@ -126,6 +143,7 @@ exports.Edit = async function (request, response) {
 exports.EditProfile = async function (request, response) {
     const profileId = request.body.profile_id;
     const profileName = request.body.name;
+
     const profileImage = request.files.image;
     var mv = require('mv');
     
@@ -139,8 +157,7 @@ exports.EditProfile = async function (request, response) {
             response.status(400).send(err);
         }
     })
-
-          
+    
     // if(profileImage){
     //     if (fs.existsSync(dirPath + profileImage.name)){
     //         console.log("File Exists");
@@ -150,13 +167,14 @@ exports.EditProfile = async function (request, response) {
     //         profileImage.mv(profileImage, dirPath);
     //     }
     // }
-
+    const profileInterest = request.body.interests;
     // send these to profileOps to update and save the document
-    let responseObj = await _profileOps.updateProfileById(profileId, profileName, profilePath);
+    let responseObj = await _profileOps.updateProfileById(profileId, profileName, profileInterest, profilePath);
 
     // if no errors, save was successful
     if (responseObj.errorMsg == "") {
         let profiles = await _profileOps.getAllProfiles();
+        console.log("Edited Success");
         response.render("profile", {
             title: "Express Yourself - " + responseObj.obj.name,
             profiles: profiles,

@@ -7,9 +7,20 @@ class ProfileOps {
     // DB methods
     async getAllProfiles() {
         console.log("getting all profiles");
+
         let profiles = await Profile.find().sort({ name: 1 });
         return profiles;
     }
+
+
+    // Search Profiles -> Bonus 1
+    async searchProfiles(searchString) {
+        const filter = { name: { $regex: searchString, $options: "i" } };
+        let searchProfiles = await Profile.find(filter);
+        return searchProfiles;
+
+    }
+
 
     async getProfileById(id) {
         console.log(`getting profile by id ${id}`);
@@ -49,15 +60,14 @@ class ProfileOps {
         console.log(result);
         return result;
     }
+    async updateProfileById(id, profileName, profileInterest, profileImage) {
 
-    async updateProfileById(id, profileName, profileImage) {
-        
         console.log(`updating profile by id ${id}`);
         const profile = await Profile.findById(id);
         console.log("original profile: ", profile);
         profile.name = profileName;
         profile.imagePath = profileImage;
-        
+        profile.interests = profileInterest.split(",");
         let result = await profile.save();
         console.log("updated profile: ", result);
         return {
