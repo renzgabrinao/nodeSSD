@@ -1,7 +1,7 @@
 const Profile = require("../models/Profile.js");
 const ProfileOps = require("../data/ProfileOps.js");
 const fs = require('fs');
-
+const mv = require('mv');
 const path = require('path');
 
 
@@ -75,11 +75,23 @@ exports.Create = async function (request, response) {
 // Handle profile form GET request
 exports.CreateProfile = async function (request, response) {
     // instantiate a new Profile Object populated with form data
+    const profileImage = request.files.image;
+    const profilePath = "/images/" + profileImage.name;
     let tempProfileObj = new Profile({
         name: request.body.name,
         interests: request.body.interests.split(","),
+        imagePath: profilePath,
 
     });
+
+    
+
+
+    profileImage.mv(path.join(__dirname+ '/../public', 'Images/')+profileImage.name, function(err) {
+        if(err){
+            response.status(400).send(err);
+        }
+    })
 
     //
     let responseObj = await _profileOps.createProfile(tempProfileObj);
@@ -145,7 +157,7 @@ exports.EditProfile = async function (request, response) {
     const profileName = request.body.name;
 
     const profileImage = request.files.image;
-    var mv = require('mv');
+    
     
     // const dirPath = (__dirname + "../public/images/")
     // profileImage.mv(profileImage, dirPath);
