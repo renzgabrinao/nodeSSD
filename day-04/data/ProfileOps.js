@@ -66,7 +66,7 @@ class ProfileOps {
         const profile = await Profile.findById(id);
         console.log("original profile: ", profile);
         profile.name = profileName;
-        profile.interests = profileInterest;
+        profile.interests = profileInterest.split(",");
         let result = await profile.save();
         console.log("updated profile: ", result);
         return {

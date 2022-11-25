@@ -73,11 +73,12 @@ exports.CreateProfile = async function (request, response) {
     // instantiate a new Profile Object populated with form data
     let tempProfileObj = new Profile({
         name: request.body.name,
+        interests: request.body.interests.split(","),
     });
 
     //
     let responseObj = await _profileOps.createProfile(tempProfileObj);
-
+    console.log(request.body.interests)
     // if no errors, save was successful
     if (responseObj.errorMsg == "") {
         let profiles = await _profileOps.getAllProfiles();
