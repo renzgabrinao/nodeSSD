@@ -12,6 +12,7 @@ class ProfileOps {
         return profiles;
     }
 
+
     // Search Profiles -> Bonus 1
     async searchProfiles(searchString) {
         const filter = { name: { $regex: searchString, $options: "i" } };
@@ -60,12 +61,12 @@ class ProfileOps {
         return result;
     }
 
-    async updateProfileById(id, profileName) {
+    async updateProfileById(id, profileName, profileInterest) {
         console.log(`updating profile by id ${id}`);
         const profile = await Profile.findById(id);
         console.log("original profile: ", profile);
         profile.name = profileName;
-
+        profile.interests = profileInterest;
         let result = await profile.save();
         console.log("updated profile: ", result);
         return {

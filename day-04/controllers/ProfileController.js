@@ -126,7 +126,7 @@ exports.Edit = async function (request, response) {
     const profileId = request.params.id;
     let profileObj = await _profileOps.getProfileById(profileId);
     response.render("profile-form", {
-        title: "Edit Profile",
+        title: "Edit Profile Get",
         errorMessage: "",
         profile_id: profileId,
         profile: profileObj,
@@ -137,13 +137,14 @@ exports.Edit = async function (request, response) {
 exports.EditProfile = async function (request, response) {
     const profileId = request.body.profile_id;
     const profileName = request.body.name;
-
+    const profileInterest = request.body.interests;
     // send these to profileOps to update and save the document
-    let responseObj = await _profileOps.updateProfileById(profileId, profileName);
+    let responseObj = await _profileOps.updateProfileById(profileId, profileName, profileInterest);
 
     // if no errors, save was successful
     if (responseObj.errorMsg == "") {
         let profiles = await _profileOps.getAllProfiles();
+        console.log("Edited Success");
         response.render("profile", {
             title: "Express Yourself - " + responseObj.obj.name,
             profiles: profiles,
