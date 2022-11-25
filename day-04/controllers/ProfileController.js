@@ -1,6 +1,10 @@
 const Profile = require("../models/Profile.js");
-
 const ProfileOps = require("../data/ProfileOps.js");
+const fs = require('fs');
+
+const path = require('path');
+
+
 // instantiate the class so we can use its methods
 const _profileOps = new ProfileOps();
 
@@ -74,11 +78,12 @@ exports.CreateProfile = async function (request, response) {
     let tempProfileObj = new Profile({
         name: request.body.name,
         interests: request.body.interests.split(","),
+
     });
 
     //
     let responseObj = await _profileOps.createProfile(tempProfileObj);
-    console.log(request.body.interests)
+
     // if no errors, save was successful
     if (responseObj.errorMsg == "") {
         let profiles = await _profileOps.getAllProfiles();
@@ -138,9 +143,33 @@ exports.Edit = async function (request, response) {
 exports.EditProfile = async function (request, response) {
     const profileId = request.body.profile_id;
     const profileName = request.body.name;
+
+    const profileImage = request.files.image;
+    var mv = require('mv');
+    
+    // const dirPath = (__dirname + "../public/images/")
+    // profileImage.mv(profileImage, dirPath);
+    const profilePath = "/images/" + profileImage.name;
+
+
+    profileImage.mv(path.join(__dirname+ '/../public', 'Images/')+profileImage.name, function(err) {
+        if(err){
+            response.status(400).send(err);
+        }
+    })
+    
+    // if(profileImage){
+    //     if (fs.existsSync(dirPath + profileImage.name)){
+    //         console.log("File Exists");
+    //     }
+    //     else
+    //     {
+    //         profileImage.mv(profileImage, dirPath);
+    //     }
+    // }
     const profileInterest = request.body.interests;
     // send these to profileOps to update and save the document
-    let responseObj = await _profileOps.updateProfileById(profileId, profileName, profileInterest);
+    let responseObj = await _profileOps.updateProfileById(profileId, profileName, profileInterest, profilePath);
 
     // if no errors, save was successful
     if (responseObj.errorMsg == "") {
