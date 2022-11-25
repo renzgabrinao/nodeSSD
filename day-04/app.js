@@ -12,6 +12,8 @@ const db = mongoose.connection;
 // Bind connection to error event (to get notification of connection errors)
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
+const fileUpload = require('express-fileupload');
+
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const logger = require("morgan");
@@ -25,6 +27,10 @@ const apiRouter = require("./routers/apiRouter");
 
 const port = process.env.PORT || 3004;
 const app = express();
+
+
+app.use(fileUpload());
+
 
 // allow cross origin requests from any port on local machine
 app.use(cors({ origin: [/127.0.0.1*/, /localhost*/] }));
@@ -44,10 +50,16 @@ app.set("views", path.join(__dirname, "views"));
 // Tell express that we'll be using the EJS templating engine
 app.set("view engine", "ejs");
 
+
+const multer = require("multer");
+const upload = multer({dest:'images/'}).single("image");
+
+  
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
+
 
 // index routes
 app.use(indexRouter);

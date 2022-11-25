@@ -9,9 +9,12 @@ const profileSchema = mongoose.Schema(
 
         // interests are optional, so lets just specify that they must be of type Array
         interests: Array,
+
+        //optional image path.
+        imagePath: {type: "String"},
     },
     // as a second argument, let's specify the collection we want to work with
-    { collection: "day04" }
+    { collection: "profiles" }
 );
 
 // Pass the Schema into Mongoose to use as our model

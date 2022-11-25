@@ -50,12 +50,14 @@ class ProfileOps {
         return result;
     }
 
-    async updateProfileById(id, profileName) {
+    async updateProfileById(id, profileName, profileImage) {
+        
         console.log(`updating profile by id ${id}`);
         const profile = await Profile.findById(id);
         console.log("original profile: ", profile);
         profile.name = profileName;
-
+        profile.imagePath = profileImage;
+        
         let result = await profile.save();
         console.log("updated profile: ", result);
         return {
