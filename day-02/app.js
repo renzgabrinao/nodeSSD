@@ -13,6 +13,19 @@ const apiRouter = require("./routers/apiRouter");
 const port = process.env.PORT || 3003;
 const app = express();
 
+
+//MongoDB connection setup
+const { mongoose } = require("mongoose");
+const uri =
+  "mongodb+srv://testuserone:eMdormEt4kXsbUuu@ssd-0.qkhxyqd.mongodb.net/?retryWrites=true&w=majority";
+// set up default mongoose connection
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+// store a reference to the default connection
+const db = mongoose.connection;
+// Bind connection to error event (to get notification of connection errors)
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
+
+
 app.use(cors({ origin: [/127.0.0.1*/, /localhost*/] }));
 
 app.set("views", path.join(__dirname, "views"));
