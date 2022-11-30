@@ -50,10 +50,6 @@ app.set("views", path.join(__dirname, "views"));
 // Tell express that we'll be using the EJS templating engine
 app.set("view engine", "ejs");
 
-
-const multer = require("multer");
-const upload = multer({dest:'images/'}).single("image");
-
   
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));

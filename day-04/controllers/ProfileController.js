@@ -75,25 +75,35 @@ exports.Create = async function (request, response) {
 // Handle profile form GET request
 exports.CreateProfile = async function (request, response) {
     // instantiate a new Profile Object populated with form data
-    const profileImage = request.files.image;
-    const profilePath = "/images/" + profileImage.name;
+    const profileImage = request.files ? request.files.image : "";
+    const profilePath = request.files? "/images/" + profileImage.name : "";
+
+    var re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
+    
+    try{
+        if (re.test(profileImage.name)){
+            profileImage.mv(path.join(__dirname+ '/../public', 'Images/')+profileImage.name, function(err) {
+                if(err){
+                    response.status(400).send(err);
+                }
+            })
+        }
+        else{
+            profilePath = ""
+        }
+
+    }
+    catch (error) {
+        console.log(error)
+    }
+
     let tempProfileObj = new Profile({
         name: request.body.name,
-
         interests: request.body.interests.split(","),
         imagePath: profilePath,
-
-
     });
 
-    
 
-
-    profileImage.mv(path.join(__dirname+ '/../public', 'Images/')+profileImage.name, function(err) {
-        if(err){
-            response.status(400).send(err);
-        }
-    })
 
     //
     let responseObj = await _profileOps.createProfile(tempProfileObj);
@@ -158,29 +168,32 @@ exports.EditProfile = async function (request, response) {
     const profileId = request.body.profile_id;
     const profileName = request.body.name;
 
-    const profileImage = request.files.image;
+    request.files ? console.log('Non Empty File') : console.log('Empty file');
     
+    var re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
+
+    const profileImage = request.files ? request.files.image : console.log('Empty file');
     
-    // const dirPath = (__dirname + "../public/images/")
-    // profileImage.mv(profileImage, dirPath);
-    const profilePath = "/images/" + profileImage.name;
+    var profilePath =  request.files ? "/images/" + profileImage.name : "";
 
-
-    profileImage.mv(path.join(__dirname+ '/../public', 'Images/')+profileImage.name, function(err) {
-        if(err){
-            response.status(400).send(err);
+    try{
+        if (re.test(profileImage.name)){
+            profileImage.mv(path.join(__dirname+ '/../public', 'Images/')+profileImage.name, function(err) {
+                if(err){
+                    response.status(400).send(err);
+                }
+            })
         }
-    })
-    
-    // if(profileImage){
-    //     if (fs.existsSync(dirPath + profileImage.name)){
-    //         console.log("File Exists");
-    //     }
-    //     else
-    //     {
-    //         profileImage.mv(profileImage, dirPath);
-    //     }
-    // }
+        else{
+            profilePath = ""
+        }
+
+    }
+    catch (error)
+    {
+        console.log(error);
+    }
+
     const profileInterest = request.body.interests;
     // send these to profileOps to update and save the document
     let responseObj = await _profileOps.updateProfileById(profileId, profileName, profileInterest, profilePath);
