@@ -8,9 +8,11 @@
     <input id="name" name="name" type="text" value="<%= profile.name ? profile.name : '' %>">
     <label for="interests">Interests:</label>
     <input id="interests" name="interests" type="text" value="<%= profile.interests ? profile.interests : '' %>" >
-    <label for="profileImage">Profile Image</label >
-    <input type="file" name="image" id="image" />
+    <label for="profileImage">Profile Image</label ><img />
+        <% if(profile.imagePath !== '') { %>
+            <img id="profile-image" src="<%= profile.imagePath  %>" alt="<%= profile.name %>" style="max-width: 200px; max-height: 150px; "/>
+            <% } %>
+    <input type="file" name="image" id="image" value="<%= profile.imagePath ? profile.imagePath : '' %>"/>
     <button type="submit" value="Submit">Submit</button>
-
 </form>
 <%= errorMessage %>
