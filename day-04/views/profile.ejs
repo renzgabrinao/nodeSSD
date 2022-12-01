@@ -2,7 +2,7 @@
 profileId) { %>
 <h2><%= profiles[i].name%></h2>
 <% if(profiles[i].imagePath) { %>
-<img src="<%= profiles[i].imagePath %>" alt="<%= profiles[i].name %>" />
+<img id="profile-image" src="<%= profiles[i].imagePath  %>" alt="<%= profiles[i].name %>" />
 <% } %>
 <ul>
   <% for (let j = 0; j < profiles[i].interests.length; j++) { %>
