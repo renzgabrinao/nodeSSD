@@ -72,17 +72,29 @@ exports.Create = async function (request, response) {
     });
 };
 
+function getFileExtension (filename) {
+    return filename.split('.').pop();
+}
+
 // Handle profile form GET request
 exports.CreateProfile = async function (request, response) {
     // instantiate a new Profile Object populated with form data
     const profileImage = request.files ? request.files.image : "";
-    const profilePath = request.files? "/images/" + profileImage.name : "";
+    let imageName = "";
 
+    //Image names cannot be duplicated
+    if (profileImage != ""){
+
+        imageName = Date.now().toString() + "." +  getFileExtension(profileImage.name);
+
+    }
+    let profilePath = request.files? "/images/" + imageName : "";
     var re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
     
+
     try{
-        if (re.test(profileImage.name)){
-            profileImage.mv(path.join(__dirname+ '/../public', 'Images/')+profileImage.name, function(err) {
+        if (re.test(imageName)){
+            profileImage.mv(path.join(__dirname+ '/../public', 'Images/')+imageName, function(err) {
                 if(err){
                     response.status(400).send(err);
                 }
@@ -169,16 +181,21 @@ exports.EditProfile = async function (request, response) {
     const profileName = request.body.name;
 
     request.files ? console.log('Non Empty File') : console.log('Empty file');
+    const profileImage = request.files ? request.files.image : "";
+    let imageName = "";
+
+    //Image names cannot be duplicated
+    if (profileImage != ""){
+
+        imageName = Date.now().toString() + "." +  getFileExtension(profileImage.name);
+
+    };
     
+    var profilePath =  request.files ? "/images/" + imageName : "";
     var re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
-
-    const profileImage = request.files ? request.files.image : console.log('Empty file');
-    
-    var profilePath =  request.files ? "/images/" + profileImage.name : "";
-
     try{
-        if (re.test(profileImage.name)){
-            profileImage.mv(path.join(__dirname+ '/../public', 'Images/')+profileImage.name, function(err) {
+        if (re.test(imageName)){
+            profileImage.mv(path.join(__dirname+ '/../public', 'Images/')+imageName, function(err) {
                 if(err){
                     response.status(400).send(err);
                 }
