@@ -80,6 +80,8 @@ function getFileExtension (filename) {
 exports.CreateProfile = async function (request, response) {
     // instantiate a new Profile Object populated with form data
     const profileImage = request.files ? request.files.image : "";
+    
+    
     let imageName = "";
 
     //Image names cannot be duplicated
@@ -88,10 +90,11 @@ exports.CreateProfile = async function (request, response) {
         imageName = Date.now().toString() + "." +  getFileExtension(profileImage.name);
 
     }
+    
     let profilePath = request.files? "/images/" + imageName : "";
     var re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
     
-
+    // Move image to public/images folder
     try{
         if (re.test(imageName)){
             profileImage.mv(path.join(__dirname+ '/../public', 'Images/')+imageName, function(err) {
@@ -168,7 +171,7 @@ exports.Edit = async function (request, response) {
     const profileId = request.params.id;
     let profileObj = await _profileOps.getProfileById(profileId);
     response.render("profile-form", {
-        title: "Edit Profile Get",
+        title: "Edit Profile",
         errorMessage: "",
         profile_id: profileId,
         profile: profileObj,
@@ -179,9 +182,14 @@ exports.Edit = async function (request, response) {
 exports.EditProfile = async function (request, response) {
     const profileId = request.body.profile_id;
     const profileName = request.body.name;
+    let profile = await _profileOps.getProfileById(profileId);
 
-    request.files ? console.log('Non Empty File') : console.log('Empty file');
+    console.log("Getting Profile in Controller")
+    console.log(profile)
+    
+    
     const profileImage = request.files ? request.files.image : "";
+
     let imageName = "";
 
     //Image names cannot be duplicated
@@ -192,7 +200,10 @@ exports.EditProfile = async function (request, response) {
     };
     
     var profilePath =  request.files ? "/images/" + imageName : "";
+    //image extensions regex
     var re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
+
+    // Move image to public/images folder
     try{
         if (re.test(imageName)){
             profileImage.mv(path.join(__dirname+ '/../public', 'Images/')+imageName, function(err) {
@@ -209,6 +220,9 @@ exports.EditProfile = async function (request, response) {
     catch (error)
     {
         console.log(error);
+    }
+    if (profilePath === "" && profile.imagePath !== ''){
+        profilePath = profile.imagePath;
     }
 
     const profileInterest = request.body.interests;
